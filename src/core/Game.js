@@ -1,18 +1,93 @@
 export class Game {
-    constructor({ canvas, width = 800, height = 600 }) {
-        if (!canvas) {
-            throw new Error("Canvas is required")
+    constructor({
+        width = 800,
+        height = 600,
+        parent,
+        background = "#111111"
+    } = {}) {
+        if (width <= 0 || height <= 0) {
+            throw new Error("Width and height must be greater greater than 0 bro")
         }
 
-        this.canvas = canvas
-        this.ctx = canvas.getContext("2d")
+        this.canvas = document.createElement("canvas")
+        this.ctx = this.canvas.getContext("2d")
 
-        this.width = width
+        if (!this.ctx) {
+            throw new Error("Failed to get 2d context")
+
+        }
+
+        this.width = width 
         this.height = height
-        
+        this.background = background
+
         this.canvas.width = width
         this.canvas.height = height
 
+        const target = parent ?? document.body
+
+        if (!target) {
+            throw new Error("No parent element to attach the canvas")
+
+        }
+
+        target.appendChild(this.canvas)
+
         this.isRunning = false
+        this.lastTime = undefined
+        this.frameId = undefined
+    }
+
+    start() {
+        if (this.isRunning) {
+            return
+        }
+
+        this.isRunning = true
+        this.lastTime = undefined
+        this.frameId = requrestAnimationFrame((time) => this.loop(time))
+    }
+
+    stop() {
+        this.isRunning = false
+
+        if (this.frameId !== undefined) {
+            cancelAnimationFrame(this.frameId)
+            this.frameId = undefined
+        }
+    }
+
+    loop(time) {
+        if (!this.isRunning) {
+            return
+        }
+
+        if (this.lastTime === undefined) {
+            this.lastTime = time
+        }
+
+        let dt = (time - this.lastTime) / 1000
+        this.lastTime = time
+
+        if (dt > 0.1) {
+            dt = 0.1
+        }
+
+        this.update(dt)
+        this.render()
+
+        if (!this.isRunning) {
+            return
+        }
+
+        this.frameId = requestAnimationFrame((nextTime) => this.loop(nextTime))
+    }
+
+    update (dt) {}
+
+    render() {
+        this.ctx.fillStyle = this.background
+        this.ctx.fillRect(0, 0, this.width, this.height)
     }
 }
+
