@@ -1,29 +1,36 @@
-import { Game } from "../../src/index.js"
+import { Game, Actor, Sprite, loadImage } from "../../src/index.js"
 
-class BasicExample extends Game {
-    constructor() {
-        super({width: 900, height: 600})
-        this.x = 40
-        this.speed = 120
-    }
 
+class Player extends Actor {
     update(dt) {
-        this.x += this.speed * dt
+        this.x += 120 * dt
 
-        if (this.x > this.width) {
-            this.x = -40
+        if (this.x > this.game.width) {
+            this.x = -this.width
         }
-    }
-
-    render() {
-        super.render()
-
-        this.ctx.fillStyle = "#e23d4a"
-        this.ctx.fillRect(this.x, 200, 40, 40)
     }
 }
 
-const game = new BasicExample()
-game.start()
+const game = new Game({
+    width: 800,
+    height: 600
+})
 
 window.game = game
+
+
+async function setup() {
+    try {
+        const image = await loadImage("/src/assets/player.png")
+        const player = new Player(40, 280, 64, 64)
+        player.setSprite(new Sprite(image))
+        game.add(player)
+        window.player = player
+
+        game.start()
+    } catch (error) {
+        console.error("Sprite loading failed:", error)
+    }
+}
+
+setup()
