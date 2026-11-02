@@ -45,7 +45,7 @@ export class Game {
 
         this.isRunning = true
         this.lastTime = undefined
-        this.frameId = requrestAnimationFrame((time) => this.loop(time))
+        this.frameId = requestAnimationFrame((time) => this.loop(time))
     }
 
     stop() {
