@@ -24,6 +24,8 @@ export class Game {
         this.canvas.width = width
         this.canvas.height = height
 
+        this.actors = []
+
         const target = parent ?? document.body
 
         if (!target) {
@@ -73,7 +75,7 @@ export class Game {
             dt = 0.1
         }
 
-        this.update(dt)
+        this.update(dt) 
         this.render()
 
         if (!this.isRunning) {
@@ -83,11 +85,42 @@ export class Game {
         this.frameId = requestAnimationFrame((nextTime) => this.loop(nextTime))
     }
 
-    update (dt) {}
+    update (dt) {
+        for (const actor of this.actors) {
+            actor.update(dt)
+        }
+    }
 
     render() {
         this.ctx.fillStyle = this.background
         this.ctx.fillRect(0, 0, this.width, this.height)
+
+        for (const actor of this.actors) {
+            actor.draw(this.ctx)
+        }
+    }
+
+    add(actor) {
+
+        if (!actor) {
+            throw new Error("Actor is required")
+        }
+
+        if (this.actors.includes(actor)) {
+            return
+        }
+        
+        actor.game = this
+        this.actors.push(actor)
+    }
+
+    remove(actor) {
+        this.actors = this.actors.filter(item => item !== actor)
+    }
+
+    clear() {
+        this.actors = []
     }
 }
+
 
