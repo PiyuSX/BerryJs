@@ -1,3 +1,5 @@
+import { Keyboard } from "../input/Keyboard"
+
 export class Game {
     constructor({
         width = 800,
@@ -20,11 +22,14 @@ export class Game {
         this.width = width 
         this.height = height
         this.background = background
+        
 
         this.canvas.width = width
         this.canvas.height = height
 
         this.actors = []
+
+        this.keyboard = new Keyboard()
 
         const target = parent ?? document.body
 
