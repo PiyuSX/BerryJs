@@ -1,0 +1,26 @@
+
+{
+  "name": "cherryjs",
+  "version": "0.1.0",
+  "description": "A lightweight JavaScript 2D game engine",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest"
+  },
+  "keywords": [
+    "javascript",
+    "2d",
+    "game-engine",
+    "canvas"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}
