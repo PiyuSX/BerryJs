@@ -1,15 +1,26 @@
+import { Keyboard } from "../../src/input/Keyboard.js"
 import { Game, Actor, Sprite, loadImage } from "../../src/index.js"
 
 
 class Player extends Actor {
     update(dt) {
-        this.x += 120 * dt
+        const speed = 200
 
-        if (this.x > this.game.width) {
-            this.x = -this.width
+        if (this.game.keyboard.isDown("ArrowRight")) {
+            this.x += speed * dt
         }
+
+        if (this.game.keyboard.isDown("ArrowLeft")) {
+            this.x -= speed * dt
+        }
+
+        this.x = Math.max(0, Math.min(
+            this.x,
+            this.game.width - this.width
+        ))
     }
 }
+
 
 const game = new Game({
     width: 800,
