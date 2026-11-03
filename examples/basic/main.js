@@ -1,9 +1,10 @@
-import { Keyboard } from "../../src/input/Keyboard.js"
-import { Game, Actor, Sprite, loadImage, Collision } from "../../src/index.js"
+import { Game, Actor, Sprite, loadImage } from "../../src/index.js"
 
 
 class Player extends Actor {
     update(dt) {
+
+        super.update(dt)
         const speed = 200
 
         if (this.game.keyboard.isDown("ArrowRight")) {
@@ -33,19 +34,22 @@ window.game = game
 async function setup() {
     try {
         const image = await loadImage("/src/assets/player.png")
-        const player = new Player(40, 280, 64, 64)
+        const player = new Player(40, 100, 64, 64)
         player.setSprite(new Sprite(image))
         game.add(player)
         window.player = player
 
-        const obstacle = new Actor(300, 280, 64, 64)
+        player.gravity = 500
+
+        const obstacle = new Actor(0, 500, 800, 50)
+        obstacle.solid = true
+
+
         game.add(obstacle)
 
         window.obstacle = obstacle
 
-        window.checkCollision = () => {
-            return Collision.check(player, obstacle)
-        }
+       
 
         game.start()
     } catch (error) {

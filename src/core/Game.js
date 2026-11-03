@@ -1,4 +1,5 @@
-import { Keyboard } from "../input/Keyboard"
+import { Keyboard } from "../input/Keyboard.js"
+import { Collision } from "./Collision.js"
 
 export class Game {
     constructor({
@@ -91,8 +92,33 @@ export class Game {
     }
 
     update (dt) {
+
+        // Updt all actors first 
         for (const actor of this.actors) {
             actor.update(dt)
+        }
+
+        //Check collision 
+
+        for (const actor of this.actors) {
+            if (actor.solid) continue
+
+            for (const other of this.actors) {
+                if (!other.solid || actor === other) continue
+
+                const collision = Collision.check(actor, other)
+
+                if (!collision) continue
+
+                Collision.resolve(actor, collision)
+
+
+                if (collision.side === "right" || collision.side === "left") {
+                    actor.vx = 0
+                } else {
+                    actor.vy = 0
+                }
+            }
         }
     }
 
