@@ -4,6 +4,11 @@ export class Actor {
         this.y = y 
         this.width = width
         this.height = height
+
+        this.vx = 0
+        this.vy = 0
+        this.gravity = 0
+        
         this.sprite = null
         this.game = null
         
@@ -13,7 +18,13 @@ export class Actor {
         this.sprite = sprite
     }
 
-    update(dt) {}
+    update(dt) {
+        this.vy += this.gravity * dt
+
+        this.x += this.vx * dt
+        this.y += this.vy * dt
+
+    }
 
     draw(ctx) {
         if (this.sprite) {
