@@ -8,6 +8,8 @@ export class Actor {
         this.vx = 0
         this.vy = 0
         this.gravity = 0
+
+        this.solid = false
         
         this.sprite = null
         this.game = null
