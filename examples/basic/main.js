@@ -1,5 +1,5 @@
 import { Keyboard } from "../../src/input/Keyboard.js"
-import { Game, Actor, Sprite, loadImage } from "../../src/index.js"
+import { Game, Actor, Sprite, loadImage, Collision } from "../../src/index.js"
 
 
 class Player extends Actor {
@@ -37,6 +37,15 @@ async function setup() {
         player.setSprite(new Sprite(image))
         game.add(player)
         window.player = player
+
+        const obstacle = new Actor(300, 280, 64, 64)
+        game.add(obstacle)
+
+        window.obstacle = obstacle
+
+        window.checkCollision = () => {
+            return Collision.check(player, obstacle)
+        }
 
         game.start()
     } catch (error) {
