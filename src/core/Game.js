@@ -1,5 +1,7 @@
 import { Keyboard } from "../input/Keyboard.js"
 import { Collision } from "./Collision.js"
+import { Scene } from "./Scene.js"
+
 
 export class Game {
     constructor({
@@ -28,7 +30,9 @@ export class Game {
         this.canvas.width = width
         this.canvas.height = height
 
-        this.actors = []
+        this.scene = new Scene()
+        this.scene.game = this
+        this.actors = this.scene.actors
 
         this.keyboard = new Keyboard()
 
@@ -151,6 +155,18 @@ export class Game {
 
     clear() {
         this.actors = []
+    }
+
+    setScene(scene) {
+        if (!scene) throw new Error("Scene is required")
+        
+        this.scene = scene
+        this.scene.game = this
+        this.actors = this.scene.actors
+
+        for (const actor of this.actors) {
+            actor.game = this
+        }
     }
 }
 
