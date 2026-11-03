@@ -95,7 +95,7 @@ export class Game {
 
         // Updt all actors first 
         for (const actor of this.actors) {
-            actor.update(dt)
+            actor._update(dt)
         }
 
         //Check collision 

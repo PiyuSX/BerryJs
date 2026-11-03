@@ -6,7 +6,7 @@ describe("Actor", () => {
         const actor = new Actor(0, 0)
 
         actor.vx = 100
-        actor.update(1)
+        actor._physics(1)
 
         expect(actor.x).toBe(100)
     })
@@ -15,7 +15,7 @@ describe("Actor", () => {
         const actor = new Actor(0, 0)
 
         actor.vy = 100
-        actor.update(1)
+        actor._physics(1)
 
         expect(actor.y).toBe(100)
     })
@@ -24,7 +24,7 @@ describe("Actor", () => {
         const actor = new Actor(0, 0)
 
         actor.gravity = 100
-        actor.update(1)
+        actor._physics(1)
 
         expect(actor.vy).toBe(100)
         expect(actor.y).toBe(100)
