@@ -20,13 +20,27 @@ export class Actor {
         this.sprite = sprite
     }
 
-    update(dt) {
-        this.vy += this.gravity * dt
 
+    //Leaving this for Devs to override this method 
+    update(dt) {
+    
+    }
+
+    // Engine controlled physics
+    _physics(dt) {
+        this.vy += this.gravity * dt
         this.x += this.vx * dt
         this.y += this.vy * dt
-
     }
+
+    // Engine calls both
+
+    _update(dt) {
+        this._physics(dt)
+        this.update(dt)
+    }
+
+
 
     draw(ctx) {
         if (this.sprite) {

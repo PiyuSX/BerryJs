@@ -4,7 +4,6 @@ import { Game, Actor, Sprite, loadImage } from "../../src/index.js"
 class Player extends Actor {
     update(dt) {
 
-        super.update(dt)
         const speed = 200
 
         if (this.game.keyboard.isDown("ArrowRight")) {
