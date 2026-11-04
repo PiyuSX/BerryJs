@@ -32,6 +32,7 @@ export class Game {
 
         this.scene = new Scene()
         this.scene.game = this
+        this.scene.start()
         this.actors = this.scene.actors
 
         this.keyboard = new Keyboard()
@@ -97,6 +98,7 @@ export class Game {
 
     update (dt) {
 
+        this.scene.update(dt)
         // Updt all actors first 
         for (const actor of this.actors) {
             actor._update(dt)
@@ -159,15 +161,24 @@ export class Game {
 
     setScene(scene) {
         if (!scene) throw new Error("Scene is required")
+        if (scene === this.scene) return
+
+        if (this.scene) {
+            this.scene.end()
+        }
+
         
         this.scene = scene
         this.scene.game = this
-        this.actors = this.scene.actors
+        this.actors = scene.actors
 
         for (const actor of this.actors) {
             actor.game = this
         }
+
+        this.scene.start()
     }
 }
+
 
 

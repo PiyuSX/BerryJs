@@ -6,6 +6,9 @@ describe("Game Physics Integration", () => {
     it("applies physics even with a custom update method", () => {
         const game = Object.create(Game.prototype)
 
+        game.scene = {
+            update() {}
+        }
         class Player extends Actor {
             update(dt) {
                 this.x += 10 * dt
@@ -26,6 +29,11 @@ describe("Game Physics Integration", () => {
     it("lands on a solid platform", () => {
         const game = Object.create(Game.prototype)
 
+        game.scene = {
+            update() {}
+        }
+
+
         const player = new Actor(0, 40, 20, 20)
         player.gravity = 100
 
@@ -41,6 +49,10 @@ describe("Game Physics Integration", () => {
 
     it("stop when hitting a solid wall", () => {
         const game = Object.create(Game.prototype)
+
+        game.scene = {
+            update() {}
+        }
 
         const player = new Actor(0, 0, 20, 20)
         player.vx = 100
