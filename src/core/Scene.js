@@ -15,4 +15,17 @@ export class Scene {
     remove(actor) {
         this.actors = this.actors.filter(item => item !== actor)
     }
+
+    start() {
+
+    }
+
+    update(dt) {
+
+    }
+
+    end() {
+
+    }
+
 }
