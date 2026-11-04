@@ -4,6 +4,12 @@ class Player extends Actor {
     update(dt) {
         const speed = 200
 
+        //temp 
+        if (this.grounded && this.game.keyboard.isDown("Space")) {
+            this.vy = -350
+            this.grounded = false
+        }
+
         if (this.game.keyboard.isDown("ArrowRight")) {
             this.x += speed * dt
         }
@@ -16,11 +22,18 @@ class Player extends Actor {
             this.x,
             this.game.width - this.width
         ))
+
+        if (this.ground && this.game.keyboard.isDown("Space")) {
+            this.vy = -350
+            this.grounded = false
+        }
     }
 }
 
 export class GameScene extends Scene {
     async start() {
+        this.actors.length = 0
+
         const image = await loadImage("/src/assets/player.png")
 
         const player = new Player(40, 100, 64, 64)
@@ -30,6 +43,7 @@ export class GameScene extends Scene {
 
         const platform = new Actor(0, 500, 800, 50)
         platform.solid = true
+        platform.color = "#3ddc84"
 
         this.add(player)
         this.add(platform)
@@ -41,3 +55,4 @@ export class GameScene extends Scene {
         }
     }
 }
+

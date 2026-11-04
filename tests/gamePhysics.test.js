@@ -67,5 +67,36 @@ describe("Game Physics Integration", () => {
         expect(player.vx).toBe(0)
     })
 
+    it("is grounded after landing and can jump", () => {
+        const game = Object.create(Game.prototype)
+
+        game.scene = {
+            update() {}
+        }
+
+        class Player extends Actor {
+            update() {
+                if (this.grounded) {
+                    this.vy = -100
+                    this.grounded = false
+                }
+            }
+        }
+
+        const player = new Player(0, 40, 20, 20)
+        player.gravity = 100
+
+        const platform = new Actor(0, 60, 100, 20)
+        platform.solid = true
+
+        game.actors = [player, platform]
+
+        game.update(0.1)
+        expect(player.grounded).toBe(true)
+
+        game.update(0.1)
+        expect(player.vy).toBe(-100)
+    })
+
 })
 

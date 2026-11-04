@@ -10,7 +10,9 @@ export class Actor {
         this.gravity = 0
 
         this.solid = false
+        this.grounded = false
         
+        this.color = null
         this.sprite = null
         this.game = null
         
@@ -44,9 +46,13 @@ export class Actor {
 
     draw(ctx) {
         if (this.sprite) {
-            this.sprite.draw(
-                ctx, this.x, this.y, this.width, this.height
-            )
+            this.sprite.draw(ctx, this.x, this.y, this.width, this.height)
+            return
+        }
+
+        if (this.color) {
+            ctx.fillStyle = this.color
+            ctx.fillRect(this.x, this.y, this.width, this.height)
         }
     }
 }

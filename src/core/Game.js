@@ -1,7 +1,7 @@
+
 import { Keyboard } from "../input/Keyboard.js"
 import { Collision } from "./Collision.js"
 import { Scene } from "./Scene.js"
-
 
 export class Game {
     constructor({
@@ -11,7 +11,7 @@ export class Game {
         background = "#111111"
     } = {}) {
         if (width <= 0 || height <= 0) {
-            throw new Error("Width and height must be greater greater than 0 bro")
+            throw new Error("Width and height must be greater than 0")
         }
 
         this.canvas = document.createElement("canvas")
@@ -19,21 +19,17 @@ export class Game {
 
         if (!this.ctx) {
             throw new Error("Failed to get 2d context")
-
         }
 
-        this.width = width 
+        this.width = width
         this.height = height
         this.background = background
-        
 
         this.canvas.width = width
         this.canvas.height = height
 
-        this.scene = new Scene()
-        this.scene.game = this
-        this.scene.start()
-        this.actors = this.scene.actors
+        this.scene = null
+        this.actors = []
 
         this.keyboard = new Keyboard()
 
@@ -41,7 +37,6 @@ export class Game {
 
         if (!target) {
             throw new Error("No parent element to attach the canvas")
-
         }
 
         target.appendChild(this.canvas)
@@ -49,12 +44,12 @@ export class Game {
         this.isRunning = false
         this.lastTime = undefined
         this.frameId = undefined
+
+        this.setScene(new Scene())
     }
 
     start() {
-        if (this.isRunning) {
-            return
-        }
+        if (this.isRunning) return
 
         this.isRunning = true
         this.lastTime = undefined
@@ -71,9 +66,7 @@ export class Game {
     }
 
     loop(time) {
-        if (!this.isRunning) {
-            return
-        }
+        if (!this.isRunning) return
 
         if (this.lastTime === undefined) {
             this.lastTime = time
@@ -86,27 +79,27 @@ export class Game {
             dt = 0.1
         }
 
-        this.update(dt) 
+        this.update(dt)
         this.render()
 
-        if (!this.isRunning) {
-            return
-        }
+        if (!this.isRunning) return
 
         this.frameId = requestAnimationFrame((nextTime) => this.loop(nextTime))
     }
 
-    update (dt) {
-
+    update(dt) {
         this.scene.update(dt)
-        // Updt all actors first 
+
         for (const actor of this.actors) {
             actor._update(dt)
         }
 
-        //Check collision 
+        for (const actor of this.actors) {
+            actor.grounded = false
+         }
 
         for (const actor of this.actors) {
+
             if (actor.solid) continue
 
             for (const other of this.actors) {
@@ -118,19 +111,28 @@ export class Game {
 
                 Collision.resolve(actor, collision)
 
-
                 if (collision.side === "right" || collision.side === "left") {
                     actor.vx = 0
-                } else {
+                } else if (collision.side === "bottom" && actor.vy >=0) {
+                    actor.vy = 0
+                    actor.grounded = true
+                } else if (collision.side === "top" && actor.vy < 0) {
                     actor.vy = 0
                 }
             }
         }
     }
 
+    draw(ctx) {
+        ctx.fillStyle = "white"
+        ctx.font = "32px sans-serif"
+        ctx.fillText("Press Enter", 280, 300)
+    }
+
     render() {
         this.ctx.fillStyle = this.background
         this.ctx.fillRect(0, 0, this.width, this.height)
+        this.scene.draw(this.ctx)
 
         for (const actor of this.actors) {
             actor.draw(this.ctx)
@@ -138,36 +140,39 @@ export class Game {
     }
 
     add(actor) {
-
         if (!actor) {
             throw new Error("Actor is required")
         }
 
-        if (this.actors.includes(actor)) {
-            return
-        }
-        
+        if (this.actors.includes(actor)) return
+
         actor.game = this
         this.actors.push(actor)
     }
 
     remove(actor) {
-        this.actors = this.actors.filter(item => item !== actor)
+        const index = this.actors.indexOf(actor)
+
+        if (index !== -1) {
+            this.actors.splice(index, 1)
+        }
     }
 
     clear() {
-        this.actors = []
+        this.actors.length = 0
     }
 
     setScene(scene) {
-        if (!scene) throw new Error("Scene is required")
+        if (!scene) {
+            throw new Error("Scene is required")
+        }
+
         if (scene === this.scene) return
 
         if (this.scene) {
             this.scene.end()
         }
 
-        
         this.scene = scene
         this.scene.game = this
         this.actors = scene.actors
@@ -176,9 +181,14 @@ export class Game {
             actor.game = this
         }
 
-        this.scene.start()
+        try {
+            Promise.resolve(scene.start()).catch(error => {
+                if (this.scene === scene) {
+                    console.error("Scene start failed:", error)
+                }
+            })
+        } catch (error) {
+            console.error("Scene start failed:", error)
+        }
     }
 }
-
-
-
