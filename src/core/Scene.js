@@ -24,6 +24,10 @@ export class Scene {
 
     }
 
+    draw(ctx) {
+        
+    }
+
     end() {
 
     }

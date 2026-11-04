@@ -1,3 +1,5 @@
+import { Scene } from "../../src/index.js"
+
 export class MenuScene extends Scene {
     start() {
         console.log("MnuScene started")
@@ -11,5 +13,11 @@ export class MenuScene extends Scene {
 
     end() {
         console.log("Leaving menu")
+    }
+
+    draw(ctx) {
+        ctx.fillStyle = "white"
+        ctx.font = "32px sans-serif"
+        ctx.fillText("Press Enter", 280, 300)
     }
 }
