@@ -30,12 +30,11 @@ export class Game {
         this.canvas.width = width
         this.canvas.height = height
 
-        this.scene = new Scene()
-        this.scene.game = this
-        this.scene.start()
-        this.actors = this.scene.actors
+        this.scene = null
+        this.actors = []
 
         this.keyboard = new Keyboard()
+        this.setScene(new Scene())
 
         const target = parent ?? document.body
 
@@ -176,7 +175,14 @@ export class Game {
             actor.game = this
         }
 
-        this.scene.start()
+        const currentScene = scene
+
+        Promise.resolve(scene.start()).catch(error => {
+            if (this.scene === currentScene) {
+                console.error("Scene start failed:", error)
+            }
+        }) 
+
     }
 }
 
