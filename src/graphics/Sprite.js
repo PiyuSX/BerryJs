@@ -21,18 +21,34 @@ export class Sprite {
         }
     }
 
-    draw(ctx, x,y , width, height) {
-        ctx.drawImage(this.image,
+    draw(ctx, x,y , width, height, flipX = false) {
+        const sx = this.frame * this.frameWidth
+
+        if (!flipX) {
+            ctx.drawImage(
+                this.image,
+                sx, 0, this.frameWidth, this.frameHeight,
+                x, y, width, height
+            )
+            return
+        }
+        ctx.save()
+        ctx.translate(x + width, y)
+        ctx.scale(-1, 1)
+        ctx.drawImage(
             this.image,
-            this.frame * this.frameWidth,
+            sx,
             0,
             this.frameWidth,
             this.frameHeight,
-            x,
-            y,
+            0,
+            0,
             width,
             height
         )
+        ctx.restore()
     }
 }
+
+
 
