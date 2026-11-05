@@ -35,9 +35,13 @@ export class Actor {
         this.y += this.vy * dt
     }
 
+
     // Engine calls both
 
     _update(dt) {
+        if (this.sprite) {
+            this.sprite.update(dt)
+        }
         this._physics(dt)
         this.update(dt)
     }
