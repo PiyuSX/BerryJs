@@ -28,7 +28,7 @@ export class GameScene extends Scene {
 
         const player = new Player(40, 100, 64, 64)
 
-        player.setSprite(new Sprite(image))
+        player.setSprite(new Sprite(image, 64, 64))
         player.gravity = 500
 
         const platform = new Actor(0, 500, 1600, 50)
