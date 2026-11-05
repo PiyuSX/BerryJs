@@ -25,4 +25,25 @@ describe("Sprite", () => {
         expect(sprite.frameCount).toBe(1)
         expect(sprite.frame).toBe(0)
     })
+
+    it("flips from the actor right edge", () => {
+        const sprite = new Sprite({ width: 32, height: 32})
+        const calls = []
+
+        const ctx = {
+            save() {},
+            restore() {},
+            translate(x, y) {
+                calls.push(["translate", x, y])
+            },
+            scale(x, y) {
+                calls.push(["scale", x, y])
+            },
+            drawImage() {}
+        }
+        sprite.draw(ctx, 10, 20, 32, 32, true)
+
+        expect(calls[0]).toEqual(["translate", 42, 20])
+        expect(calls[1]).toEqual(["scale", -1, 1])
+    })
 })

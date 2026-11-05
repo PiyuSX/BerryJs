@@ -8,6 +8,7 @@ export class Actor {
         this.vx = 0
         this.vy = 0
         this.gravity = 0
+        this.flipX = false
 
         this.solid = false
         this.grounded = false
@@ -50,7 +51,7 @@ export class Actor {
 
     draw(ctx) {
         if (this.sprite) {
-            this.sprite.draw(ctx, this.x, this.y, this.width, this.height)
+            this.sprite.draw(ctx, this.x, this.y, this.width, this.height, this.flipX)
             return
         }
 

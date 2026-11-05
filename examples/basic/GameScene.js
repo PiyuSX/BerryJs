@@ -7,10 +7,12 @@ class Player extends Actor {
 
         if (this.game.keyboard.isDown("ArrowRight")) {
             this.x += speed * dt
+            this.flipX = false
         }
 
         if (this.game.keyboard.isDown("ArrowLeft")) {
             this.x -= speed * dt
+            this.flipX = true
         }
 
         if (this.ground && this.game.keyboard.isDown("Space")) {
