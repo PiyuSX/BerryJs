@@ -2,6 +2,7 @@
 import { Keyboard } from "../input/Keyboard.js"
 import { Collision } from "./Collision.js"
 import { Scene } from "./Scene.js"
+import { Camera } from "./Camera.js"
 
 export class Game {
     constructor({
@@ -45,6 +46,7 @@ export class Game {
         this.lastTime = undefined
         this.frameId = undefined
 
+        this.camera = new Camera(width, height)
         this.setScene(new Scene())
     }
 
@@ -121,6 +123,11 @@ export class Game {
                 }
             }
         }
+
+
+        if (this.camera) {
+            this.camera.update()
+        }
     }
 
     draw(ctx) {
@@ -134,9 +141,14 @@ export class Game {
         this.ctx.fillRect(0, 0, this.width, this.height)
         this.scene.draw(this.ctx)
 
+        this.ctx.save()
+        this.ctx.translate(-this.camera.x, -this.camera.y)
+
         for (const actor of this.actors) {
             actor.draw(this.ctx)
         }
+
+        this.ctx.restore()
     }
 
     add(actor) {

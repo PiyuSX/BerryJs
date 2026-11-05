@@ -2,7 +2,8 @@ import { Scene } from "../../src/index.js"
 
 export class MenuScene extends Scene {
     start() {
-        console.log("MnuScene started")
+        console.log("MenuScene started")
+        this.game.camera.follow(null)
     }
 
     update(dt) {
