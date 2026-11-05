@@ -22,18 +22,22 @@ export class Sprite {
     }
 
     draw(ctx, x,y , width, height, flipX = false) {
+        const ratio = this.image.height / this.image.width
+        const drawW = width
+        const drawH = width * ratio
+        const drawY = y + height - drawH
         const sx = this.frame * this.frameWidth
 
         if (!flipX) {
             ctx.drawImage(
                 this.image,
                 sx, 0, this.frameWidth, this.frameHeight,
-                x, y, width, height
+                x, drawY, drawW, drawH
             )
             return
         }
         ctx.save()
-        ctx.translate(x + width, y)
+        ctx.translate(x + drawW, drawY)
         ctx.scale(-1, 1)
         ctx.drawImage(
             this.image,
@@ -43,8 +47,8 @@ export class Sprite {
             this.frameHeight,
             0,
             0,
-            width,
-            height
+            drawW,
+            drawH
         )
         ctx.restore()
     }

@@ -15,7 +15,7 @@ class Player extends Actor {
             this.flipX = true
         }
 
-        if (this.ground && this.game.keyboard.isDown("Space")) {
+        if (this.grounded && this.game.keyboard.isDown("Space")) {
             this.vy = -350
             this.grounded = false
         }
@@ -30,7 +30,7 @@ export class GameScene extends Scene {
 
         const player = new Player(40, 100, 64, 64)
 
-        player.setSprite(new Sprite(image, 64, 64))
+        player.setSprite(new Sprite(image))
         player.gravity = 500
 
         const platform = new Actor(0, 500, 1600, 50)
