@@ -46,4 +46,19 @@ describe("Sprite", () => {
         expect(calls[0]).toEqual(["translate", 42, 20])
         expect(calls[1]).toEqual(["scale", -1, 1])
     })
+
+    it("changes row without restarting the same animation", () => {
+        const sprite = new Sprite({ width: 100, height: 80}, 20, 20)
+
+        sprite.setAnimation(1, 5)
+        sprite.frame = 2
+        sprite.setAnimation(1, 5)
+
+        expect(sprite.frame).toBe(2)
+
+        sprite.setAnimation(0, 5)
+
+        expect(sprite.row).toBe(0)
+        expect(sprite.frame).toBe(0)
+    })
 })
