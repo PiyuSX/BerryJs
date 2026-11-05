@@ -4,11 +4,6 @@ class Player extends Actor {
     update(dt) {
         const speed = 200
 
-        //temp 
-        if (this.grounded && this.game.keyboard.isDown("Space")) {
-            this.vy = -350
-            this.grounded = false
-        }
 
         if (this.game.keyboard.isDown("ArrowRight")) {
             this.x += speed * dt
@@ -17,11 +12,6 @@ class Player extends Actor {
         if (this.game.keyboard.isDown("ArrowLeft")) {
             this.x -= speed * dt
         }
-
-        this.x = Math.max(0, Math.min(
-            this.x,
-            this.game.width - this.width
-        ))
 
         if (this.ground && this.game.keyboard.isDown("Space")) {
             this.vy = -350
@@ -41,11 +31,12 @@ export class GameScene extends Scene {
         player.setSprite(new Sprite(image))
         player.gravity = 500
 
-        const platform = new Actor(0, 500, 800, 50)
+        const platform = new Actor(0, 500, 1600, 50)
         platform.solid = true
         platform.color = "#3ddc84"
 
         this.add(player)
+        this.game.camera.follow(player)
         this.add(platform)
     }
     
@@ -55,4 +46,5 @@ export class GameScene extends Scene {
         }
     }
 }
+
 
