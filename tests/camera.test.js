@@ -22,4 +22,37 @@ describe("Camera", () => {
         expect(camera.x).toBe(0)
         expect(camera.y).toBe(0)
     })
+
+    it("stops at the level edges", () => {
+        const camera = new Camera(800, 600)
+        const actor = { x: 0, y: 0, width: 40, height: 40}
+
+
+        camera.follow(actor)
+        camera.setBounds(0, null, 1600, null)
+        camera.update()
+
+        expect(camera.x).toBe(0)
+
+        actor.x = 2000
+        camera.update()
+
+        expect(camera.x).toBe(800)
+    })
+
+    it("ignores bounds when nothing is followed", () => {
+        const camera = new Camera(800, 600)
+
+        camera.follow(null)
+        camera.setBounds(0, 0, 1600, 600)
+        camera.update()
+
+        expect(camera.x).toBe(0)
+        expect(camera.y).toBe(0)
+    })
+
+
 })
+
+
+

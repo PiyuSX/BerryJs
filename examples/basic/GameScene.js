@@ -70,6 +70,7 @@ export class GameScene extends Scene {
 
         this.add(player)
         this.game.camera.follow(player)
+        this.game.camera.setBounds(0, null, 1600, null)
         this.add(platform)
     }
     
