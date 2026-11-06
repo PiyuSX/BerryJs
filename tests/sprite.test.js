@@ -62,3 +62,7 @@ describe("Sprite", () => {
         expect(sprite.frame).toBe(0)
     })
 })
+
+
+
+
