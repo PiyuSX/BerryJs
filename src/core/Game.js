@@ -31,6 +31,7 @@ export class Game {
 
         this.scene = null
         this.actors = []
+        this.removed = []
 
         this.keyboard = new Keyboard()
 
@@ -128,6 +129,18 @@ export class Game {
         if (this.camera) {
             this.camera.update()
         }
+
+        if (this.removed) {
+            for (const actor of this.removed) {
+                const index = this.actors.indexOf(actor)
+
+                if (index !== -1) {
+                    this.actors.splice(index, 1)
+                }
+            }
+
+            this.removed.length = 0
+        }
     }
 
     draw(ctx) {
@@ -163,11 +176,13 @@ export class Game {
     }
 
     remove(actor) {
-        const index = this.actors.indexOf(actor)
 
-        if (index !== -1) {
-            this.actors.splice(index, 1)
-        }
+        if (!actor || !this.removed) return
+        if(this.removed.includes(actor)) return
+        if (!this.actors.includes(actor)) return
+
+        this.removed.push(actor)
+        
     }
 
     clear() {

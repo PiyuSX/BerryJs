@@ -5,3 +5,5 @@ export { loadImage } from "./assets/loadImage.js"
 export { Collision } from "./core/Collision.js"
 export { Scene } from "./core/Scene.js"
 export { Camera } from "./core/Camera.js"
+export { Sound } from "./audio/Sound.js"
+

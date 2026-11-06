@@ -13,6 +13,11 @@ export class Scene {
     }
 
     remove(actor) {
+        if (this.game && this.game.scene === this) {
+            this.game.remove(actor)
+            return
+        }
+
         this.actors = this.actors.filter(item => item !== actor)
     }
 
