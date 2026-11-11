@@ -29,6 +29,10 @@ export class Actor {
     
     }
 
+    onOverlap(other) {
+        
+    }
+
     // Engine controlled physics
     _physics(dt) {
         this.vy += this.gravity * dt
