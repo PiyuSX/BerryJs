@@ -48,10 +48,9 @@ class Player extends Actor {
     }
 
     onOverlap(other) {
-        if (other !== this.coin) return
+        if (other.tag !== "coin") return
 
         this.score += 1
-        this.coin = null
         this.game.remove(other)
     }
 }
@@ -84,9 +83,15 @@ export class GameScene extends Scene {
         this.add(platform)
 
         const coin = new Actor(400, 476, 24, 24)
+        coin.tag = "coin"
         coin.color = "#ffd000"
-        player.coin = coin
         this.add(coin)
+
+
+        const otherCoin = new Actor(700, 476, 24, 24)
+        otherCoin.tag = "coin"
+        otherCoin.color = "#ffd000"
+        this.add(otherCoin)
     }
     
     update(dt) {
