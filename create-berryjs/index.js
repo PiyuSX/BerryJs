@@ -1,49 +1,32 @@
-import { copyFile, mkdir, readFile, writeFile, access } from "node:fs/promises"
+#!/usr/bin/env node
+import { cp, mkdir, writeFile, access } from "node:fs/promises"
 import { dirname, join, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 
 
 const here = dirname(fileURLToPath(import.meta.url))
+const template = join(here, "template")
 const engine = resolve(here, "..")
 const args = process.argv.slice(2)
 const local = args.includes("--local")
 const name = args.find(arg => !arg.startsWith("-")) || "my-game"
 const target = resolve(process.cwd(), name)
 
-
 try {
     await access(target)
-    console.error(name + "already exists")
+    console.error(name + " already exists")
     process.exit(1)
 } catch {
     
 }
 
-await mkdir(join(target, "scenes"), { recursive: true })
-await mkdir(join(target, "assets"), { recursive: true })
+await mkdir(target, { recursive: true })
+await cp(join(template, "scenes"), join(target, "scenes"), { recursive: true })
+await cp(join(template, "public"), join(target, "public"), { recursive: true })
 
-async function copyScene(file) {
-    const source = join(engine, "examples", "basic", file)
-    let text = await readFile(source, "utf8")
-
-    text = text.replaceAll("../../src/index.js", "berryjs")
-    text = text.replaceAll("/src/assets/player-sheet.png", "/assets/player-sheet.png")
-
-    await writeFile(join(target, "scenes", file), text)
-}
-
-
-await copyScene("MenuScene.js")
-await copyScene("GameScene.js")
-
-await copyFile(
-    join(engine, "src", "assets", "player-sheet.png"),
-    join(target, "assets", "player-sheet.png")
-)
-
-await writeFile(join(target, "main.js"), `import { Game } from 'berryjs'
-import { MenuScene } from './scenes/MenuScene.js'
-import { GameScene } from './scenes/GameScene.js'
+await writeFile(join(target, "main.js"), `import { Game } from "berryjs"
+import { MenuScene } from "./scenes/MenuScene.js"
+import { GameScene } from "./scenes/GameScene.js"
 
 const game = new Game({
     fullscreen: true
@@ -56,7 +39,6 @@ game.setScene(game.menuScene)
 game.start()
 `)
 
-
 await writeFile(join(target, "index.html"), `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,10 +47,9 @@ await writeFile(join(target, "index.html"), `<!DOCTYPE html>
 </head>
 <body>
     <script type="module" src="/main.js"></script>
- </body>
+</body>
 </html>
 `)
-
 
 const pkg = {
     name,
@@ -79,14 +60,12 @@ const pkg = {
         build: "vite build"
     },
     dependencies: {
-        berryjs: local ? "file:" + engine.replaceAll("\\", 
-            "/") : "^0.1.0"
+        berryjs: local ? "file:" + engine.replaceAll("\\", "/") : "^0.1.0"
     },
     devDependencies: {
         vite: "^8.3.5"
     }
 }
-
 
 await writeFile(join(target, "package.json"), JSON.stringify(pkg, null, 2) + "\n")
 
@@ -96,4 +75,3 @@ console.log("Next:")
 console.log("  cd " + name)
 console.log("  npm install")
 console.log("  npm run dev")
-
