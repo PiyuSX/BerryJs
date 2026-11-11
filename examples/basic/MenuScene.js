@@ -22,7 +22,7 @@ export class MenuScene extends Scene {
     ctx.textAlign = "center"
 
     ctx.font = "48px sans-serif"
-    ctx.fillText("🍒 CherryJs v1", this.game.width / 2, 250)
+    ctx.fillText("🍒 BerryJs v1", this.game.width / 2, 250)
 
     ctx.font = "32px sans-serif"
     ctx.fillText("Press Enter", this.game.width / 2, 320)
