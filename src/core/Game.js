@@ -101,6 +101,19 @@ export class Game {
             actor.grounded = false
          }
 
+         const overlaps = []
+
+         for (let i = 0; i < this.actors.length; i++) {
+            for (let j = i + 1; j < this.actors.length; j++) {
+                const actor = this.actors[i]
+                const other = this.actors[j]
+
+                if (Collision.check(actor, other)) {
+                    overlaps.push([actor, other])
+                }
+            }
+         }
+
         for (const actor of this.actors) {
 
             if (actor.solid) continue
@@ -123,6 +136,11 @@ export class Game {
                     actor.vy = 0
                 }
             }
+        }
+
+        for (const [actor, other] of overlaps) {
+            if (actor.onOverlap) actor.onOverlap(other)
+            if (other.onOverlap) other.onOverlap(actor)
         }
 
 

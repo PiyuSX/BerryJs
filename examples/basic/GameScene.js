@@ -46,6 +46,14 @@ class Player extends Actor {
             this.sprite.setAnimation(0, 5)
         }
     }
+
+    onOverlap(other) {
+        if (other !== this.coin) return
+
+        this.score += 1
+        this.coin = null
+        this.game.remove(other)
+    }
 }
 
 
@@ -59,6 +67,8 @@ export class GameScene extends Scene {
         const frameHeight = image.height / 4
 
         const player = new Player(40, 100, 64, 64)
+        player.score = 0
+        this.player = player
 
         player.setSprite(new Sprite(image, frameWidth, frameHeight))
         player.sprite.offsetY = 18
@@ -72,12 +82,25 @@ export class GameScene extends Scene {
         this.game.camera.follow(player)
         this.game.camera.setBounds(0, null, 1600, null)
         this.add(platform)
+
+        const coin = new Actor(400, 476, 24, 24)
+        coin.color = "#ffd000"
+        player.coin = coin
+        this.add(coin)
     }
     
     update(dt) {
         if (this.game.keyboard.isDown("Escape")) {
             this.game.setScene(this.game.menuScene)
         }
+    }
+
+    draw(ctx) {
+        if (!this.player) return
+
+        ctx.fillStyle = "white"
+        ctx.font = "24px sans-serif"
+        ctx.fillText("Score: " + this.player.score, 24, 40)
     }
 }
 
