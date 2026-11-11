@@ -11,6 +11,7 @@ export class Actor {
         this.flipX = false
 
         this.solid = false
+        this.tag = null
         this.grounded = false
         
         this.color = null
@@ -30,7 +31,7 @@ export class Actor {
     }
 
     onOverlap(other) {
-        
+
     }
 
     // Engine controlled physics

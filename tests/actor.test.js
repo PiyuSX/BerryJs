@@ -29,4 +29,11 @@ describe("Actor", () => {
         expect(actor.vy).toBe(100)
         expect(actor.y).toBe(100)
     })
+
+    it("starts with no tag", () => {
+        const actor = new Actor()
+
+        expect(actor.tag).toBe(null)
+    })
 })
+
