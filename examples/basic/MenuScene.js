@@ -1,3 +1,4 @@
+
 import { Scene } from "../../src/index.js"
 
 export class MenuScene extends Scene {
@@ -18,7 +19,20 @@ export class MenuScene extends Scene {
 
     draw(ctx) {
         ctx.fillStyle = "white"
+        ctx.textAlign = "center"
+
+        ctx.font = "48px sans-serif"
+        ctx.fillText("🍒 CherryJs v1", this.game.width / 2, 250)
+
         ctx.font = "32px sans-serif"
-        ctx.fillText("Press Enter", 280, 300)
+        ctx.fillText("Press Enter", this.game.width / 2, 320)
+
+        // Personal Details
+        ctx.textAlign = "right"
+        ctx.font = "12px sans-serif"
+        ctx.fillStyle = "#888888"
+        ctx.fillText("By Piyush", this.game.width - 15, this.game.height - 30)
+        ctx.fillStyle = "#4da6ff"
+        ctx.fillText("piyushrajbanshi.com.np", this.game.width - 15, this.game.height - 14)
     }
 }

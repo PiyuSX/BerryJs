@@ -8,6 +8,7 @@ export class Game {
     constructor({
         width = 800,
         height = 600,
+        fullscreen = false,
         parent,
         background = "#111111"
     } = {}) {
@@ -16,6 +17,12 @@ export class Game {
         }
 
         this.canvas = document.createElement("canvas")
+        this.fullscreen = fullscreen
+
+        if (fullscreen) {
+            width = window.innerWidth
+            height = window.innerHeight
+        }
         this.ctx = this.canvas.getContext("2d")
 
         if (!this.ctx) {
@@ -48,6 +55,13 @@ export class Game {
         this.frameId = undefined
 
         this.camera = new Camera(width, height)
+
+        if (this.fullscreen) {
+            this.canvas.style.display = "block"
+            document.body.style.margin = "0"
+            document.body.style.overflow = "hidden"
+            window.addEventListener("resize", () => this.resize())
+        }
         this.setScene(new Scene())
     }
 
@@ -66,6 +80,17 @@ export class Game {
             cancelAnimationFrame(this.frameId)
             this.frameId = undefined
         }
+    }
+
+    resize() {
+        if (!this.fullscreen) return
+
+        this.width = window.innerWidth
+        this.height = window.innerHeight
+        this.canvas.width = this.width
+        this.canvas.height = this.height
+        this.camera.width = this.width
+        this.camera.height = this.height
     }
 
     loop(time) {

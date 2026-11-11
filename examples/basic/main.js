@@ -3,8 +3,7 @@ import { MenuScene } from './MenuScene.js'
 import { GameScene } from './GameScene.js'
 
 const game = new Game({
-    width: 800,
-    height: 600
+    fullscreen: true
 })
 
 game.menuScene = new MenuScene()
