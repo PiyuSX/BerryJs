@@ -1,8 +1,0 @@
-{
-"name": "create-cherryjs",
-"version": "0.1.0",
-"type": "module",
-"bin": {
-    "create-cherryjs": "./index.js"
-  }
-}

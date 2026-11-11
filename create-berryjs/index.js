@@ -26,7 +26,7 @@ async function copyScene(file) {
     const source = join(engine, "examples", "basic", file)
     let text = await readFile(source, "utf8")
 
-    text = text.replaceAll("../../src/index.js", "cherryjs")
+    text = text.replaceAll("../../src/index.js", "berryjs")
     text = text.replaceAll("/src/assets/player-sheet.png", "/assets/player-sheet.png")
 
     await writeFile(join(target, "scenes", file), text)
@@ -41,7 +41,7 @@ await copyFile(
     join(target, "assets", "player-sheet.png")
 )
 
-await writeFile(join(target, "main.js"), `import { Game } from 'cherryjs'
+await writeFile(join(target, "main.js"), `import { Game } from 'berryjs'
 import { MenuScene } from './scenes/MenuScene.js'
 import { GameScene } from './scenes/GameScene.js'
 
@@ -61,7 +61,7 @@ await writeFile(join(target, "index.html"), `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CherryJs</title>
+    <title>BerryJs</title>
 </head>
 <body>
     <script type="module" src="/main.js"></script>
@@ -79,7 +79,7 @@ const pkg = {
         build: "vite build"
     },
     dependencies: {
-        cherryjs: local ? "file:" + engine.replaceAll("\\", 
+        berryjs: local ? "file:" + engine.replaceAll("\\", 
             "/") : "^0.1.0"
     },
     devDependencies: {

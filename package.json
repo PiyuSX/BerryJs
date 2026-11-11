@@ -1,5 +1,5 @@
 {
-  "name": "cherryjs",
+  "name": "berryjs",
   "version": "0.1.0",
   "description": "A lightweight JavaScript 2D game engine",
   "type": "module",
