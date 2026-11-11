@@ -107,6 +107,6 @@ export class GameScene extends Scene {
 
         ctx.fillStyle = "white"
         ctx.font = "24px sans-serif"
-        ctx.fillText("Score: " + this.player.score, 24, 40)
+        ctx.fillText("Score: " + this.player.score, 100, 40)
     }
 }
