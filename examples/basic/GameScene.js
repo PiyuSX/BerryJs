@@ -19,7 +19,7 @@ class Player extends Actor {
 
 
         if (this.grounded && this.game.keyboard.isDown("Space")) {
-            this.vy = -350
+            this.vy = -420
             this.grounded = false
         }
 
@@ -81,6 +81,12 @@ export class GameScene extends Scene {
         this.game.camera.follow(player)
         this.game.camera.setBounds(0, null, 1600, null)
         this.add(platform)
+
+        const ledge = new Actor(280, 340, 180, 16)
+        ledge.solid = true
+        ledge.oneWay = true
+        ledge.color = "#7bdff2"
+        this.add(ledge)
 
         const coin = new Actor(400, 476, 24, 24)
         coin.tag = "coin"

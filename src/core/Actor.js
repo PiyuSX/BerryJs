@@ -11,6 +11,7 @@ export class Actor {
         this.flipX = false
 
         this.solid = false
+        this.oneWay = false
         this.tag = null
         this.grounded = false
         

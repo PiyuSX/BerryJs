@@ -98,5 +98,46 @@ describe("Game Physics Integration", () => {
         expect(player.vy).toBe(-100)
     })
 
+    it("lands on a one-way platform", () => {
+        const game = Object.create(Game.prototype)
+
+        game.scene = { update() {} }
+        game.removed = []
+
+        const player = new Actor(0, 40, 20, 20)
+        player.gravity = 100
+
+         const platform = new Actor(0, 60, 100, 20)
+         platform.solid = true
+         platform.oneWay = true
+
+         game.actors = [player, platform]
+         game.update(0.1)
+
+         expect(player.y).toBe(40)
+         expect(player.grounded).toBe(true)
+    })
+
+    it("passes upward through a one-way platform", () => {
+        const game = Object.create(Game.prototype)
+
+        game.scene = { update() {} }
+        game.removed = []
+
+        const player = new Actor(0, 50, 20, 20)
+        player.vy = -100
+
+        const platform = new Actor(0, 40, 100, 20)
+        platform.solid = true
+        platform.oneWay = true
+
+        game.actors = [player, platform]
+        game.update(0.1)
+
+        expect(player.y).toBe(40)
+        expect(player.vy).toBe(-100)
+
+    })
+
 })
 

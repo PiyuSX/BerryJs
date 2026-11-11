@@ -125,6 +125,10 @@ export class Game {
 
                 if (!collision) continue
 
+                if (other.oneWay && (collision.side !== "bottom" || actor.vy < 0)) {
+                    continue
+                }
+
                 Collision.resolve(actor, collision)
 
                 if (collision.side === "right" || collision.side === "left") {
