@@ -172,6 +172,7 @@ sprite.setAnimation(1, 5)   // row 1, 5 frames
 ```
 
 Here is the Example BluePrint
+![PlayerAnimationSheet](src/assets/player-sheet.png)
 
 ### Camera
  
