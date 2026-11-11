@@ -2,7 +2,7 @@
 
 
 <p>>A lightweight 2d game engine for browser</p>
-<p>No dependencies and made with creativity of me</p>
+<p>No dependencies. Just a little project I built myself.</p>
 
 ![Demo](docs/demo.png)
 
