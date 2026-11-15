@@ -4,7 +4,9 @@
 <p>>A lightweight 2d game engine for browser</p>
 <p>No dependencies. Just a little project I built myself.</p>
 
-![Demo](docs/demo.png)
+[Website](https://piyusx.github.io/berryjs-site/) · [npm](https://www.npmjs.com/package/berryjs) · [GitHub](https://github.com/PiyuSX/BerryJs)
+
+![Demo](https://raw.githubusercontent.com/PiyuSX/BerryJs/refs/heads/main/src/assets/player-sheet.png)
 
 ## Quick Start
 ```bash
