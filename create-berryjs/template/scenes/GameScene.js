@@ -1,4 +1,4 @@
-import { Scene, Actor, Sprite, loadImage } from "berryjs"
+import { Scene, Actor, Sprite, loadImage } from "berryjs-engine"
 
 class Player extends Actor {
     update(dt) {
