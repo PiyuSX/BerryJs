@@ -1,8 +1,9 @@
 {
-"name": "create-berryjs",
-"version": "0.1.0",
-"type": "module",
-"bin": {
-    "create-berryjs": "./index.js"
-  }
+  "name": "create-berryjs",
+  "version": "0.1.1",
+  "type": "module",
+  "bin": {
+    "create-berryjs": "index.js"
+  },
+  "license": "MIT"
 }
