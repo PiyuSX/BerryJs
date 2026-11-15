@@ -40,17 +40,17 @@ my-game/
 ## Manual Install (Not Recc By PiyusX 😁💩)
  
 ```bash
-npm install berryjs
+npm install berryjs-engine
 ```
 
-Use Vite to run BerryJS in your project. which resolved `import... from "berryjs" fro you.
+Use Vite to run BerryJS in your project. which resolved `import... from "berryjs-engine" fro you.
 
 ## Hello World
 
 A player that moves with the arrow keys and jumps with Space:
 
 ```js
-import { Game, Scene, Actor } from "berryjs"
+import { Game, Scene, Actor } from "berryjs-engine"
  
 class Player extends Actor {
     update(dt) {
@@ -164,7 +164,7 @@ class Player extends Actor {
 Load a sprite sheet where each row is an animation:
  
 ```js
-import { Sprite, loadImage } from "berryjs"
+import { Sprite, loadImage } from "berryjs-engine"
  
 const image = await loadImage("/assets/player-sheet.png")
 const sprite = new Sprite(image, frameWidth, frameHeight)
@@ -196,7 +196,7 @@ this.game.keyboard.isDown("ShiftLeft")
 ### Sound
  
 ```js
-import { Sound } from "berryjs"
+import { Sound } from "berryjs-engine"
  
 const jump = new Sound("/assets/jump.wav")
 jump.play()

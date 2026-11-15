@@ -24,7 +24,7 @@ await mkdir(target, { recursive: true })
 await cp(join(template, "scenes"), join(target, "scenes"), { recursive: true })
 await cp(join(template, "public"), join(target, "public"), { recursive: true })
 
-await writeFile(join(target, "main.js"), `import { Game } from "berryjs"
+await writeFile(join(target, "main.js"), `import { Game } from "berryjs-engine"
 import { MenuScene } from "./scenes/MenuScene.js"
 import { GameScene } from "./scenes/GameScene.js"
 
@@ -60,7 +60,7 @@ const pkg = {
         build: "vite build"
     },
     dependencies: {
-        berryjs: local ? "file:" + engine.replaceAll("\\", "/") : "^0.1.0"
+        "berryjs-engine": local ? "file:" + engine.replaceAll("\\", "/") : "^0.1.0"
     },
     devDependencies: {
         vite: "^8.3.5"

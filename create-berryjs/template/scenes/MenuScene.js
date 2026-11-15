@@ -1,5 +1,5 @@
 
-import { Scene } from "berryjs"
+import { Scene } from "berryjs-engine"
 
 export class MenuScene extends Scene {
     start() {
