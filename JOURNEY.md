@@ -146,7 +146,6 @@ I wrote tests for that too. At this stage, the suite reached 28 passing
 tests.
 
 ![Camera following the
-player](https://cdn.hackclub.com/01a1aa9c-04b6-70bf-a025-f8df47060f6c/journal-1793863713391.png)
 
 ![Camera and platformer
 progress](https://cdn.hackclub.com/01a1aa9c-1200-760e-96cf-c823c383a893/journal-1793863717166.png)
